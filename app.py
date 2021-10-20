@@ -42,4 +42,5 @@ def act(value_one, value_two, oper):
     result = calculator(value_one, value_two, oper)
     return render_template('result.html', num_one=value_one, num_two=value_two, action=oper, result=result)
 
+
 app.run(host='0.0.0.0', port=9090, debug=True)
