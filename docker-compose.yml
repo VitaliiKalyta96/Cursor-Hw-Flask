@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/application
     ports:
-      - "9090:9090"
+      - "9191:9191"
     networks:
       - app
 

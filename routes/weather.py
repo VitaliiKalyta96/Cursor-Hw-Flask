@@ -8,7 +8,7 @@ import requests
 def weather():
     city = request.args.get('city')
     response = requests.get(
-        Config.WEATHER_API_URL + "?key=" + Config.WEATHER_API_KEY + "&q=" + city + "&aqi=yes"
+        Config.WEATHER_API_URL + "?key=" + Config.WEATHER_API_KEY + "&q=" + city + "&aqi=no"
     )
 
     return response.json()
