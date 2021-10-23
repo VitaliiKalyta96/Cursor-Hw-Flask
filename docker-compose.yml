@@ -5,7 +5,9 @@ services:
     build:
       context: ./
       dockerfile: docker/Dockerfile
-    container_name: 'flask1'
+    container_name: 'flask-renee'
+    env_file:
+      - .env
     volumes:
       - .:/application
     ports:
