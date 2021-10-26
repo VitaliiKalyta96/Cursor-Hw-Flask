@@ -4,10 +4,8 @@ from app import app
 
 class TestAll(unittest.TestCase):
 
-    def test_weather(self, client):
+    def test_weather_2(self, client):
         response = self.client.get('/weather?city=Ternopil')
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(response.status_code, 200)
         self.assertIn(response.json['location']['name'], "Ternopil")
         
-if __name__ == '__main__':
-    unittest.main()
