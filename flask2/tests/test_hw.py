@@ -3,7 +3,6 @@ import unittest
 from app import app
 from flask import Flask
 from flask import render_template
-
 from flask_testing import TestCase
 
 
