@@ -50,7 +50,6 @@ class TestRender(TestCase):
     def test_save(self):
         response = self.client.get("/save")
         self.assertRedirects(response, "/display-text")
-
         
     def test_index():
         try:
@@ -58,8 +57,7 @@ class TestRender(TestCase):
             self.assert_template_used(Config.WEATHER_API_KEY)
         except RuntimeError:
             pass
-            
-           
+                       
     def test_text(self):
         try:
             self.client.get("/display-text")
