@@ -27,10 +27,9 @@
                     $('#todoList').append("<li>" + el.title + "</br>" + el.text + "</li>");
 	        $(document).ready(function () {
 
-                }
-            }
-        });
-    });
+                $.ajax({
+                    url: "/api/v1/todos",
+            	    type: "DELETE",
 </script>
 </body>
 </html>
