@@ -14,28 +14,22 @@ class Todo(Resource):
         return todos
         
         
-# Створив функцію для діставання title для редагування і видалення даних.
-# Чи варто її створювати чи є якийсь інший шлях для доступу до даних ???
-
-def get_user_by_data(user_data):
+def get_by_data(data):
     for x in todos:
-        if x.get("title") == str(user_data):
+        if x.get("title") == str(data):
             return x
 
-# Створив окермий клас для вирішення 1 завадння 15 дз. Чи я на вірному шляху чи я щось упустив, бо наразі не раниться коректоно?
-# Гуглив однак там в методи класу додають переважно ід чи тут потрібно також ід чи потрібно через title??
-#
 
 class Todo2(Resource):
 
     def get(self, title):
-        user = get_user_by_data(title)
+        user = get_by_data(title)
         if not user:
             return {"error": "User not found"}
         return user
         
     def put(self, title):
-        user = get_user_by_data(title)
+        user = get_by_data(title)
         if user:
             todos.remove(user)
             todos.append(request.json)
@@ -43,7 +37,7 @@ class Todo2(Resource):
 
     def delete(self, title):
         return delete_todo()
-        user = get_user_by_data(title)
+        user = get_by_data(title)
         if user:
             todos.remove(user)
         return {"message": "Deleted"}

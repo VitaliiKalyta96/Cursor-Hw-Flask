@@ -10,8 +10,6 @@ def todos_list():
 def add_todo():
     return render_template('add-todo.html')
     
-    
-# Чи варто зачіпати цю todo.py цей блок для вирішення 1 завдання з додаванням методу апдейт і деліт ??
 
 # @app.route('/update-todo/<string:title>/<string:text>/', methods=['PUT'])
 # def update_todo(title, text):
