@@ -21,3 +21,8 @@ def add_todo():
 # def delete_todo(title, text):
 #    todos.remove(title[0], text[1])
 #    return None, 404
+
+
+# @app.route('/delete-todo')
+# def add_todo():
+#    return render_template('delete-todo.html')

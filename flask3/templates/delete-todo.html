@@ -13,17 +13,17 @@
 <div class="todo-list">
     <ul id="todoList"></ul>
 </div>
-<a href="/add-todo">Add new Todo</a></br>
+<a href="/delete-todo">Delete Todo</a>
 
 <script>
     $(document).ready(function () {
         $.ajax({
-            url: "/api/v1/todos",
-            type: "GET",
+            url: "/api/v1/todos/<string:title>",
+            type: "DELETE",
             contentType: "application/json; charset=utf-8",
             success: (todos) => {
                 for (let el of todos) {
-                    $('#todoList').append("<li>" + el.title + "</br>" + el.text + "</li>");
+                    $('#todoList').remove("<li>" + el.title + "</br>" + el.text + "</li>");
 	        $(document).ready(function () {
 
                 }
