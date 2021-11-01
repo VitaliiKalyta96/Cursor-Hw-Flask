@@ -14,7 +14,6 @@
 <div>Timezone: <span id="timezone"></span></div>
 <div>Cloud: <span id="cloud"></span></div>
 <div>Temp: <span id="temp"></span></div>
-<div>City2: <span id="name"></span></div>
 
 <script>
     $(document).ready(function () {
@@ -31,7 +30,6 @@
                         $("#timezone").html(response.location.tz_id);
                         $("#cloud").html(response.current.cloud);
                         $("#temp").html(response.current.temp_c);
-			$("#name").html(response.location.name);
                     }
                 });
             }
