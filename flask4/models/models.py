@@ -2,6 +2,7 @@ from framework.models import Model
 
 
 class Plant(Model):
+
     file = "plants.json"
 
     def __init__(self, id, location, name, director_id):
@@ -55,6 +56,7 @@ class Plant(Model):
 
 
 class Employee(Model):
+
     file = "employees.json"
 
     def __init__(self, id, name, email, department_type, department_id):
@@ -67,13 +69,10 @@ class Employee(Model):
         if Plant.get_plant_by_director_id(self.id) is not None:
             self.is_director = True
 
-
     def department(self):
         if self.department_type == "plant":
             return Plant.get_by_id(self.deparment_id)
         return None
-
-
 
     def _generate_dict(self):
         return {
@@ -92,3 +91,59 @@ class Employee(Model):
             element = self.get_by_id(self.id)
         except Exception:
             self.save_to_file(employees)
+            
+            
+class Salon(Model):
+
+    file = "salons.json"
+
+    def __init__(self, id, name, director_id, city, address):
+        try:
+            self.id = id
+            self.name = name['name']
+            self.director_id = director_id['director_id']
+            self.city = city['city']
+            self.address = address['address']
+        except:
+            self.id = id
+            self.name = name['name']
+            self.director_id = director_id['director_id']
+            self.city = city['city']
+            self.address = address['address']
+            if self.director(self.director_id) is None:
+                del self
+                raise Exception("We don't have employee with this id!")
+            
+    @staticmethod
+    def director(director_id):
+        try:
+            director = Salon.get_by_id(director_id)
+            return director
+        except Exception:
+            return None
+
+    @classmethod
+    def get_salon_by_director_id(cls, director_id):
+        salons = cls.get_file_data(cls.file)
+        for salon in salons:
+            if salon['director_id'] == director_id:
+                return salon
+        return None
+        
+    def _generate_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'director_id': self.director_id,
+            'city': self.city,
+            'address': self.address
+        }
+
+    def save(self):
+        salon_in_dict_format = self._generate_dict()
+        salons = self.get_file_data(self.file)
+        salons.append(salon_in_dict_format)
+        try:
+            element = self.get_by_id(self.id)
+        except Exception:
+            self.save_to_file(salons)
