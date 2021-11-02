@@ -51,6 +51,8 @@ class SalonDirectorResource(Resource):
             return director
         except Exception:
             return "Not Found", 404
+
+
 api.add_resource(PlantResource, "/api/v1/salons")            
 api.add_resource(PlantDirectorResource, '/api/v1/salons/<int:id>/director')
 api.add_resource(PlantSingleResource, "/api/v1/salons/<int:id>")  
