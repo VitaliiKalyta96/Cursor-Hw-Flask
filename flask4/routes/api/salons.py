@@ -14,14 +14,8 @@ class SalonResource(Resource):
         return salon
 
     def post(self):
-        request_data = request.json
-        salon = Salon(
-            request_data['id'],
-            request_data['name'],
-            request_data['director_id'],
-            request_data['city'],
-            request_data['address'],
-        )
+        data = request.json
+        salon = Salon(data['id'], data['name'], data['director_id'], data['city'], data['address'])
         salon.save()
         return salon._generate_dict()
 

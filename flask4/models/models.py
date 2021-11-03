@@ -99,17 +99,18 @@ class Salon(Model):
 
     def __init__(self, id, name, director_id, city, address):
         try:
+            salon = self.get_by_id(id)
             self.id = id
-            self.name = name['name']
-            self.director_id = director_id['director_id']
-            self.city = city['city']
-            self.address = address['address']
+            self.name = salon['name']
+            self.director_id = salon['director_id']
+            self.city = salon['city']
+            self.address = salon['address']
         except:
             self.id = id
-            self.name = name['name']
-            self.director_id = director_id['director_id']
-            self.city = city['city']
-            self.address = address['address']
+            self.name = name
+            self.director_id = director_id
+            self.city = city
+            self.address = address
             if self.director(self.director_id) is None:
                 del self
                 raise Exception("We don't have employee with this id!")

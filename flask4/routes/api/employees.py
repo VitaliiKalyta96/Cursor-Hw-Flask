@@ -19,7 +19,7 @@ class EmployeeResource(Resource):
             request_data['name'],
             request_data['email'],
             request_data['department_type'],
-            request_data['deparment_id'],
+            request_data['deparment_id']
         )
         employee.save()
         return employee._generate_dict()
