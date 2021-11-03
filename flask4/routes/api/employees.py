@@ -1,5 +1,5 @@
 from app import app, api
-from models import Employee
+from models.models import Employee
 from flask import request
 from flask_restful import Resource
 

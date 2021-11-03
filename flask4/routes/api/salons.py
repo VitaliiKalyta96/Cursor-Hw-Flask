@@ -1,7 +1,7 @@
 from app import app, api
 from flask import request, Response
 from flask_restful import Resource
-from models import Salon
+from models.models import Salon
 
 
 class SalonResource(Resource):
@@ -53,6 +53,6 @@ class SalonDirectorResource(Resource):
             return "Not Found", 404
 
 
-api.add_resource(PlantResource, "/api/v1/salons")            
-api.add_resource(PlantDirectorResource, '/api/v1/salons/<int:id>/director')
-api.add_resource(PlantSingleResource, "/api/v1/salons/<int:id>")  
+api.add_resource(SalonResource, "/api/v1/salons")            
+api.add_resource(SalonDirectorResource, '/api/v1/salons/<int:id>/director')
+api.add_resource(SalonSingleResource, "/api/v1/salons/<int:id>")  

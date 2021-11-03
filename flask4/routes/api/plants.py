@@ -1,7 +1,7 @@
 from app import app, api
 from flask import request, Response
 from flask_restful import Resource
-from models import Plant
+from models.models import Plant
 
 
 class PlantResource(Resource):
