@@ -13,16 +13,32 @@ class Todo(Resource):
     def post(self):
         todos.append(request.json)
         return todos
+        
+def get_by_data(data):
+    for x in todos:
+         if x[title] == "title":
+             return x
 
 
 class Todo2(Resource):
 
     def get(self, title):
-        data = todos[title]
-        for el in data:
-            if el['title'] == title:
-                return el
-        return Response("Data not found", 404)
+        try:
+            data = request.json(todos[title])
+            return data
+        except KeyError:
+            return Response("Not found", status=404)
+        
+#        return todos[title]
+        
+#        for x in todos:
+#            if x["title"] == title:      
+              
+#        data = todos[title]
+#        for el in data:
+#            if el['title'] == title:
+#                return el
+#        return Response("Data not found", 404)
 
     def put(self, title, data):
         todos[title] = request.json.get('text')
@@ -42,7 +58,7 @@ class Todo2(Resource):
 
 
 api.add_resource(Todo, "/api/v1/todos")
-api.add_resource(Todo2, "/api/v1/todos/<int:title>", methods=['PUT', 'DELETE'])
+api.add_resource(Todo2, "/api/v1/todos/<int:title>")
 
 
 
