@@ -66,14 +66,17 @@ class Salon(db.Model):
         db.Integer,
         primary_key=True
     )
+    
     name = db.Column(
         db.String(255),
         nullable=False
     )
+    
     city = db.Column(
         db.String(255),
         nullable=False
     )
+    
     address = db.Column(
         db.String(255),
         nullable=False

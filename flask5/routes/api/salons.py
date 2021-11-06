@@ -46,6 +46,7 @@ class SalonDirectorResource(Resource):
             if director is None:
                 return "Director Not Found", 404
             return director
+            
         except Exception:
             return "Not Found", 404
 
