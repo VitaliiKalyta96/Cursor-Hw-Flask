@@ -1,15 +1,15 @@
 from app import app, api, db
 from flask import request, Response
 from flask_restful import Resource
-from modles.models import Salon
+from models.models import Salon
 from utils.helpers import convert_list
 
 
 class SalonResource(Resource):  
 
     def get(self):
-        salon = Salon.query.all()
-        return convert_list(salon)
+        salons = Salon.query.all()
+        return convert_list(salons)
 
     def post(self):
         data = request.json

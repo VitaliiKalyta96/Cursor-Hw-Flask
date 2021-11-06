@@ -63,8 +63,8 @@ class Employee(db.Model):
 class Salon(db.Model):
     __tablename__ = "salons"
     id = db.Column(
-         db.Integer,
-         primary_key=True
+        db.Integer,
+        primary_key=True
     )
     name = db.Column(
         db.String(255),
