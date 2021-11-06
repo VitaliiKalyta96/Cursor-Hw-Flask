@@ -1,11 +1,12 @@
 from app import app, api, db
-from models import Employee
 from flask import request
 from flask_restful import Resource
+from models.models import Employee
 from utils.helpers import convert_list
 
 
 class EmployeeResource(Resource):
+
     def get(self):
         employees = Employee.query.all()
         return convert_list(employees)
@@ -24,6 +25,7 @@ class EmployeeResource(Resource):
 
 
 class EmployeeSingleResource(Resource):
+
     def get(self, id):
         employee = Employee.query.get(id)
         return employee.serialize

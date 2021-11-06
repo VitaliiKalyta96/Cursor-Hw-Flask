@@ -1,14 +1,14 @@
 from app import app, api, db
 from flask import request, Response
 from flask_restful import Resource
-from models import Plant
+from models.models import Plant
 from utils.helpers import convert_list
 
 
 class PlantResource(Resource):
+
     def get(self):
         plants = Plant.query.all()
-
         return convert_list(plants)
 
     def post(self):
@@ -20,6 +20,7 @@ class PlantResource(Resource):
 
 
 class PlantSingleResource(Resource):
+
     def get(self, id):
         plant = Plant.query.get(id)
         return plant.serialize
@@ -37,6 +38,7 @@ class PlantSingleResource(Resource):
 
 
 class PlantDirectorResource(Resource):
+
     def get(self, id):
         try:
             plant = Plant.get_by_id(id)
