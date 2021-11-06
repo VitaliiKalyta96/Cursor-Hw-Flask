@@ -68,7 +68,6 @@ class Salon(db.Model):
     )
     name = db.Column(
         db.String(255),
-	unique=True,
         nullable=False,
     )   
     city = db.Column(
@@ -77,7 +76,6 @@ class Salon(db.Model):
     )    
     address = db.Column(
         db.String(255),
-	unique=True,
         nullable=False
     )    
     
@@ -86,6 +84,6 @@ class Salon(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'city': self.city
+            'city': self.city,
             'address': self.address
         }
