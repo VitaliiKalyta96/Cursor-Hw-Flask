@@ -20,6 +20,7 @@ class SalonResource(Resource):
 
 
 class SalonSingleResource(Resource):
+
     def get(self, id):
         salon = Salon.query.get(id)
         return salon.serialize
@@ -37,6 +38,7 @@ class SalonSingleResource(Resource):
 
 
 class SalonDirectorResource(Resource):
+
     def get(self, id):
         try:
             salon = Salon.get_by_id(id)
