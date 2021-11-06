@@ -5,7 +5,7 @@ from models.models import Salon
 from utils.helpers import convert_list
 
 
-class SalonResource(Resource):  
+class SalonResource(Resource):
 
     def get(self):
         salons = Salon.query.all()
@@ -20,25 +20,23 @@ class SalonResource(Resource):
 
 
 class SalonSingleResource(Resource):
-        
     def get(self, id):
         salon = Salon.query.get(id)
         return salon.serialize
 
-#    def put(self, id):
-#        data = request.json
-#        Salon.update_by_id(id, data)
-#        return Salon.get_by_id(id)
+    # def put(self, id):
+    #   data = request.json
+    #   Salon.update_by_id(id, data)
+    #   return Salon.get_by_id(id)
 
     def delete(self, id):
         salon = Salon.query.get(id)
         db.session.delete(salon)
         db.session.commit()
         return "", 204
-        
+
 
 class SalonDirectorResource(Resource):
-
     def get(self, id):
         try:
             salon = Salon.get_by_id(id)
@@ -50,6 +48,6 @@ class SalonDirectorResource(Resource):
             return "Not Found", 404
 
 
-api.add_resource(SalonResource, "/api/v1/salons")            
-api.add_resource(SalonDirectorResource, '/api/v1/salons/<int:id>/director')
-api.add_resource(SalonSingleResource, "/api/v1/salons/<int:id>") 
+api.add_resource(SalonResource, "/api/v1/salons")
+api.add_resource(SalonSingleResource, "/api/v1/salons/<int:id>")
+api.add_resource(SalonDirectorResource, "/api/v1/salons/<int:id>/director")
