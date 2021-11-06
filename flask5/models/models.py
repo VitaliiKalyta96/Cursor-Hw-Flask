@@ -60,24 +60,26 @@ class Employee(db.Model):
         }
         
 
-class Salons(db.Models):
+class Salon(db.Model):
     __tablename__ = "salons"
     id = db.Column(
          db.Integer,
          primary_key=True
-         )
+    )
     name = db.Column(
         db.String(255),
+	unique=True,
         nullable=False,
-        )   
+    )   
     city = db.Column(
         db.String(100),
         nullable=False,
-        )    
+    )    
     address = db.Column(
         db.String(255),
+	unique=True,
         nullable=False
-        )    
+    )    
     
     @property
     def serialize(self):
