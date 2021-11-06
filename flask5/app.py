@@ -12,7 +12,7 @@ with app.app_context():
     from routes.main import *
     from routes.api.plants import *
     from routes.api.employees import *
-    from models import Plant, Employee
+    from models import Plant, Employee, Salons
 
     db.create_all()
 
