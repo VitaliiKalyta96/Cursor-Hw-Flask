@@ -1,53 +1,44 @@
 from app import app, api
 from flask import request, Response
-from flask_restful import Resource
+from flask_restful import Resource, abort
 
 
-todos = []
+todos = {}
+
 
 class Todo(Resource):
+
     def get(self):
         return todos
 
     def post(self):
-        todos.append(request.json)
+        todos[request.json.get('title_id', 'text')] = request.json.get('int', 'text')
         return todos
-        
-        
-# def get_by_data(data):
-#    for x in todos:
-#        if x.get("title") == int(data):
-#            return x
 
 
-class Todo2(Resource):
+class TodoEdit(Resource):
 
-#    def get(self, title):
-#       user = get_by_data(title)
-#        if not user:
-#            return {"error": "User not found"}
-#        return user
+    def get(self, title_id):
+        try:
+            data = {title_id: todos[title_id]}
+        except KeyError:
+            return abort(404, message="This title_id {} not found.".format(title_id))
+        return data
 
-    def get(self, title):
-        data = todos[title]
-        if not data in todos:
-            return Response("Data not found", 404)
-        return todos[title]
-        
-#    def put(self, title):
-#        user = get_by_data(title)
-#        if user:
-#            todos.remove(user)
-#            todos.append(request.json)
-#        return todos  
+    def put(self, title_id):
+        try:
+            todos[title_id] = request.json.get('text')
+            return {title_id: todos[title_id]}
+        except KeyError:
+            return abort(404, message="This title_id {} not found.".format(title_id))
+            
+    def delete(self, title_id):
+        try:
+            del todos[title_id]
+            return Response(todos, status=204)
+        except KeyError:
+            return abort(404, message="This title_id {} not found.".format(title_id))
 
-    def put(self, title):  
-        todos[title] =  request.json.get('text')
-        return todos[title]
 
-    def delete(self, title):
-        del todos[title]
-        return Response("", 204)
-        
-api.add_resource(Todo, "/api/v1/todos")
-api.add_resource(Todo2, "/api/v1/todos/<int:title>", methods=['PUT', 'DELETE'])
+api.add_resource(Todo, '/api/v1/todos')
+api.add_resource(TodoEdit, '/api/v1/todos/<int:title_id>')
