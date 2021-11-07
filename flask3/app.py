@@ -14,4 +14,5 @@ with app.app_context():
     from routes.todo import *
     from routes.api.todo import *
 
+
 app.run(debug=True)
