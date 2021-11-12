@@ -1,7 +1,7 @@
 from app import db, app, api
 from flask_restful import Resource
 from flask import request
-from models import MenuItem
+from models.models import MenuItem
 from utils.helpers import convert_list
 
 

@@ -55,6 +55,7 @@ class Employee(db.Model):
         return {
             'id': self.id,
             'email': self.email,
+            'name': self.name,
             'department_type': self.department_type,
             'department_id': self.department_id
         }
@@ -84,7 +85,7 @@ class MenuItem(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'link': self.link,
+            'link': self.link
         }
         
 class Salon(db.Model):
