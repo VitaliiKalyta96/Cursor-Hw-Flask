@@ -105,3 +105,4 @@ def test_salon_delete(client):
     assert response.status_code == 204
     response = client.delete("/api/v1/salons/1")
     assert response.status_code == 404
+
