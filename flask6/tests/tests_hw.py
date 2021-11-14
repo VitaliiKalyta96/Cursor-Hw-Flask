@@ -106,4 +106,3 @@ def test_salon_delete(client):
     response = client.delete("/api/v1/salons/1")
     assert response.status_code == 404
 
-

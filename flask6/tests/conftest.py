@@ -25,7 +25,7 @@ def employee_data():
     yield {
         'email': 'jack@gmail.com',
         'name': 'Jack',
-        'department_type': 'technic',
+        'department_type': 'technic'
     } 
         
 @pytest.fixture()
