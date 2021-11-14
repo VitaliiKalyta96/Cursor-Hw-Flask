@@ -41,4 +41,4 @@ def salon_data():
         'name': 'Roy',
         'city': 'Lviv',
         'address': 'Washington street 20'
-
+    }
