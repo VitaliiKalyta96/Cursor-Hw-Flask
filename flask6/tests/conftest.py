@@ -1,33 +1,44 @@
-import os
 import pytest
-
-from app import *
-
-
-os.environ["SQLALCHEMY_DATABASE_URI"] = 'testing'
-
-@pytest.yield_fixture(scope='session')
-def app():
-    app = app(config_name='testing')
-
-    with app.app_context():
-        yield app
+from models.models import Plant, Employee, MenuItem, Salon
+from app import app, db
 
 
 @pytest.fixture
-def app_context(app):
-    with app.app_context() as ctx:
-        yield ctx
-
-
-@pytest.fixture
-def test_client(app, app_context):
-    return app.test_client()
-
-
-@pytest.yield_fixture(scope='session')
-def db(app):
+def client():
+    app.test = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://flask:flask@db:3306/flask'
+    client = app.test_client()
     with app.app_context():
-        db_instance.drop_all()
-        db_instance.create_all()
-        yield db_instance
+        db.create_all()
+        db.session.commit()
+    yield client
+
+@pytest.fixture()
+def plant_data():
+    yield {
+        'location': 'Ternopil',
+        'name': 'Jacktom'
+    }
+    
+@pytest.fixture()
+def employee_data():
+    yield {
+        'email': 'jack@gmail.com',
+        'name': 'Jack',
+        'department_type': 'technic',
+    } 
+        
+@pytest.fixture()
+def menuitem_data():
+    yield {
+        'name': 'Plant_Employee_Salon',
+        'link': 'menu'
+    }
+
+@pytest.fixture()
+def salon_data():
+    yield {
+        'name': 'Roy',
+        'city': 'Lviv',
+        'address': 'Washington street 20'
+    }
