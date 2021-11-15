@@ -59,6 +59,20 @@ class Employee(db.Model):
             'department_type': self.department_type,
             'department_id': self.department_id
         }
+        
+    @property
+    def department(self):
+        return Plant.query.get(self.department_id)
+        
+    @property
+    def department_(self):
+        return Salon.query.get(self.department_type)
+
+    def __repr__(self):
+        return json.dumps(self.serialize)
+
+    def __str__(self):
+        return json.dumps(self.serialize)
 
 
 class MenuItem(db.Model):
@@ -118,3 +132,8 @@ class Salon(db.Model):
             'city': self.city,
             'address': self.address
         }
+        
+    director = db.relationship("Employee", foreign_keys=[department_type])
+
+    def __repr__(self):
+        return json.dumps(self.serialize)

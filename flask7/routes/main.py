@@ -20,7 +20,8 @@ def plant(id):
 @app.route('/employee/<int:id>')
 def employee(id):
     employee = Employee.query.get(id)
-    employee.department = Plant.query.get(employee.department_id)
+#    employee.department = Plant.query.get(employee.department_id)
+#    employee.department = Salon.query.get(employee.department_type)
     return render_template('employee.html', employee=employee)
      
  
