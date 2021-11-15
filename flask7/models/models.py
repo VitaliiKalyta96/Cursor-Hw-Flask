@@ -23,6 +23,11 @@ class Plant(db.Model):
             'location': self.location,
             'name': self.name
         }
+        
+    director = db.relationship("Employee", foreign_keys=[department_id])
+
+    def __repr__(self):
+        return json.dumps(self.serialize)
 
 
 class Employee(db.Model):
