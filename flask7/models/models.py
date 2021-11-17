@@ -1,4 +1,5 @@
 from app import db
+import json
 
 
 class Plant(db.Model):
@@ -16,18 +17,24 @@ class Plant(db.Model):
         nullable=False
     )
 
+    director_id = db.Column(
+        db.Integer,
+        db.ForeignKey('employees.id')
+    )
+
+    director = db.relationship("Employee", foreign_keys=[director_id])
+
+    def __repr__(self):
+        return json.dumps(self.serialize)
+
     @property
     def serialize(self):
         return {
             'id': self.id,
             'location': self.location,
-            'name': self.name
+            'name': self.name,
+            'director_id': self.director_id
         }
-        
-    director = db.relationship("Employee", foreign_keys=[department_id])
-
-    def __repr__(self):
-        return json.dumps(self.serialize)
 
 
 class Employee(db.Model):
@@ -56,28 +63,24 @@ class Employee(db.Model):
     )
 
     @property
+    def department(self):
+        if self.department_type == "plant":
+            return Plant.query.get(self.department_id)
+        if self.department_type == "salon":
+            return Salon.query.get(self.department_id)
+    #
+    # def __repr__(self):
+    #     return json.dumps(self.serialize)
+
+
+    @property
     def serialize(self):
         return {
             'id': self.id,
             'email': self.email,
-            'name': self.name,
             'department_type': self.department_type,
             'department_id': self.department_id
         }
-        
-    @property
-    def department(self):
-        return Plant.query.get(self.department_id)
-        
-    @property
-    def department_(self):
-        return Salon.query.get(self.department_type)
-
-    def __repr__(self):
-        return json.dumps(self.serialize)
-
-    def __str__(self):
-        return json.dumps(self.serialize)
 
 
 class MenuItem(db.Model):
@@ -98,32 +101,31 @@ class MenuItem(db.Model):
         db.Boolean,
         default=True
     )
-    
+
     @property
     def serialize(self):
         return {
             'id': self.id,
             'name': self.name,
-            'link': self.link
+            'link': self.link,
         }
-        
+
+
 class Salon(db.Model):
     __tablename__ = "salons"
     id = db.Column(
         db.Integer,
         primary_key=True
     )
-    
+
     name = db.Column(
         db.String(255),
         nullable=False
     )
-    
     city = db.Column(
-        db.String(255),
+        db.String(140),
         nullable=False
     )
-    
     address = db.Column(
         db.String(255),
         nullable=False
@@ -137,8 +139,3 @@ class Salon(db.Model):
             'city': self.city,
             'address': self.address
         }
-        
-    director = db.relationship("Employee", foreign_keys=[department_type])
-
-    def __repr__(self):
-        return json.dumps(self.serialize)
