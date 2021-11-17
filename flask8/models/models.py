@@ -143,3 +143,4 @@ class MenuItem(db.Model):
             'link': self.link,
         }
 
+

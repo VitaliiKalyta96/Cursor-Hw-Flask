@@ -17,6 +17,7 @@ def plant(id):
     employees = Employee.query.all()
     return render_template('edit-plant.html', plant=plant, employees=employees)
 
+
 @app.route('/plant/<int:id>/edit')
 def plant_edit_page(id):
     plant = Plant.query.get(id)
