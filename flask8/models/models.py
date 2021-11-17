@@ -65,7 +65,10 @@ class Employee(db.Model):
 
     @property
     def department(self):
-        return Plant.query.get(self.department_id)
+        if self.department_type == "plant":
+            return Plant.query.get(self.department_id)
+        if self.department_type == "salon":
+            return Salon.query.get(self.department_id)
 
     def __repr__(self):
         return json.dumps(self.serialize)
@@ -80,6 +83,36 @@ class Employee(db.Model):
             'email': self.email,
             'department_type': self.department_type,
             'department_id': self.department_id
+        }
+
+
+class Salon(db.Model):
+    __tablename__ = "salons"
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+    name = db.Column(
+        db.String(255),
+        nullable=False
+    )
+    city = db.Column(
+        db.String(140),
+        nullable=False
+    )
+    address = db.Column(
+        db.String(255),
+        nullable=False
+    )
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'city': self.city,
+            'address': self.address
         }
 
 
@@ -109,3 +142,4 @@ class MenuItem(db.Model):
             'name': self.name,
             'link': self.link,
         }
+
