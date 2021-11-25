@@ -1,7 +1,7 @@
 from app import app, api, db
 from flask import request, Response
 from flask_restful import Resource
-from models.models import Salon
+from models import Salon
 from utils.helpers import convert_list
 
 

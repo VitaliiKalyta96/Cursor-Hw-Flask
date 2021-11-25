@@ -24,6 +24,7 @@ def plant_edit_page(id):
     employees = Employee.query.all()
     return render_template('edit-plant.html', plant=plant, employees=employees, salon=salon)
 
+
 @app.route('/plant/<int:id>/update', methods=['POST'])
 def plant_update(id):
     plant = Plant.query.get(id)
@@ -35,17 +36,20 @@ def plant_update(id):
     db.session.commit()
     return redirect(url_for('plant', id=id))
 
+
 @app.route('/employee/<int:id>')
 def employee(id):
     employee = Employee.query.get(id)
     return render_template('employee.html', employee=employee)
-    
+
+
 @app.route('/employee/<int:id>/edit')
 def employee_edit_page(id):
     employee= Employee.query.get(id)
     plants = Plant.query.all()
     salons = Salon.query.all()
     return render_template('edit-employee.html', plants=plants, employee=employee, salons=salons)    
+
 
 @app.route('/employee/<int:id>/update', methods=['POST'])
 def employee_update(id):
@@ -58,7 +62,8 @@ def employee_update(id):
     db.session.add(employee)
     db.session.commit()
     return redirect(url_for('employee', id=id))
-    
+
+
 @app.route('/salon/<int:id>')
 def salon(id):
     salon = Salon.query.get(id)

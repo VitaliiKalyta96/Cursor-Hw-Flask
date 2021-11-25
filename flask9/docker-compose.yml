@@ -4,26 +4,18 @@ services:
   app9:
     build:
       context: ./
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/python/Dockerfile
     container_name: 'renee-montoya-app9'
     env_file:
       - .env
     volumes:
       - .:/application
-    expose:
-      - "5000"
+    ports:
+      - "8080:8080"
     networks:
       - app
     depends_on:
       - db
-
-  nginx:
-    container_name: nginx
-    build: ./docker/nginx
-    ports:
-      - "1337:80"
-    depends_on:
-      - app9
 
   db:
     image: mysql:8.0
@@ -40,6 +32,17 @@ services:
       - app
     volumes:
       - db_data:/var/lib/mysql
+
+  nginx:
+    image: nginx:1.19-alpine
+    ports:
+      - "8082:80"
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - app
+    depends_on:
+      - app9
 
 networks:
   app:
