@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, jsonify
 from models import Plant, Employee, Salon
 
 
@@ -20,7 +20,7 @@ def plant(id):
 
 @app.route('/login')
 def login():
-    return render_template('f.html', session=session)
+    return render_template('login.html', session=session)
 
 
 @app.route('/auth', methods=['POST'])
@@ -31,7 +31,21 @@ def auth():
     print(user)
     if user is not None:
         session['user'] = user.serialize
-    return redirect("http://localhost:8082/")
+    return redirect("http://localhost:9092/")
+
+
+@app.route('/logout')
+def logout():
+    form = request.form
+    if form in session:
+        session.pop('user')
+    return render_template('logout.html', session=session)
+
+    # return jsonify({'message': 'You successfully logged out'})
+    # return redirect("http://localhost:9092/")
+
+    # login()
+    # return redirect(url_for("main"))
 
 
 @app.route('/plant/<int:id>/edit')
