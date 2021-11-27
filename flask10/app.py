@@ -14,7 +14,6 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
-
 with app.app_context():
     from routes.api import *
     from routes.main import *
