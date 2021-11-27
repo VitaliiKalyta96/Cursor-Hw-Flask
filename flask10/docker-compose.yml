@@ -11,7 +11,7 @@ services:
     volumes:
       - .:/application
     ports:
-      - "8080:8080"
+      - "9090:9090"
     networks:
       - app
     depends_on:
@@ -36,7 +36,7 @@ services:
   nginx:
     image: nginx:1.19-alpine
     ports:
-      - "8082:80"
+      - "9092:90"
     volumes:
       - ./docker/nginx:/etc/nginx/conf.d
     networks:
