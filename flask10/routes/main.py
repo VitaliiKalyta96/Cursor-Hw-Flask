@@ -36,8 +36,8 @@ def auth():
 
 @app.route('/logout')
 def logout():
-    form = request.form
-    if form in session:
+    user = request.form
+    if user in session:
         session.pop('user')
     return render_template('logout.html', session=session)
 
