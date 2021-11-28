@@ -39,7 +39,6 @@ def logout():
     session.pop('user')
     return render_template('logout.html')
 
-    # session.pop('user')
     # return redirect(url_for('main'))
 
     # return jsonify({'message': 'You successfully logged out'})
@@ -47,6 +46,7 @@ def logout():
 
     # login()
     # return redirect(url_for("main"))
+
 
 @app.route('/plant/<int:id>/edit')
 def plant_edit_page(id):
