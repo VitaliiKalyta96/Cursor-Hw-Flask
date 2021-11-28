@@ -36,17 +36,17 @@ def auth():
 
 @app.route('/logout')
 def logout():
-    user = request.form
-    if user in session:
-        session.pop('user')
-    return render_template('logout.html', session=session)
+    session.pop('user')
+    return render_template('logout.html')
+
+    # session.pop('user')
+    # return redirect(url_for('main'))
 
     # return jsonify({'message': 'You successfully logged out'})
     # return redirect("http://localhost:9092/")
 
     # login()
     # return redirect(url_for("main"))
-
 
 @app.route('/plant/<int:id>/edit')
 def plant_edit_page(id):
