@@ -19,6 +19,14 @@
                 {% endfor %}
             </ul>
         </div>
+        <div class="col-sm-offset-2 col-sm-5 text-center">
+            <h2>Salons</h2>
+            <ul class="list-group" id="salons">
+                {% for salon in salons %}
+                    <li class="list-group-item"><a href="{{ url_for('salon', id=salon.id) }}">{{ salon.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </section>
 

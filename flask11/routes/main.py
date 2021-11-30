@@ -101,16 +101,27 @@ def employee_update(id):
 @app.route('/salon/<int:id>')
 def salon(id):
     salon = Salon.query.get(id)
-    return render_template('salon.html', salon=salon, session=session)
+    employees = Employee.query.all()
+    return render_template('edit-salon.html', employees=employees, salon=salon, session=session)
+
+
+@app.route('/salon/<int:id>/edit')
+def salon_edit_page(id):
+    if session.get('user') is None:
+        return redirect("http://localhost:9092/")
+    salon = Salon.query.get(id)
+    employees = Employee.query.all()
+    return render_template('edit-salon.html', plant=plant, employees=employees, salon=salon, session=session)
 
 
 @app.route('/salon/<int:id>/update', methods=['POST'])
 def salon_update(id):
+    if session.get('user') is None:
+        return redirect("http://localhost:9092/")
     salon = Salon.query.get(id)
     form_data = request.form
-    employee.name = form_data.get('name')
-    employee.city = form_data.get('city')
-    employee.address = form_data.get('address')
+    salon.name = form_data.get('name')
+    salon.address = form_data.get('address')
     db.session.add(salon)
     db.session.commit()
     return redirect(url_for('salon', id=id))
