@@ -1,66 +1,39 @@
-// $(document).ready(function () {
-//     $("#searchInput").on('keyup', function (event) {
-//         let text = $(this).val();
-//         console.log(text);
-//     })
-// });
-
-
-
-const searchResults = document.getElementById('searchResults');
-const searchInput = document.getElementById('searchInput');
-let hpCharacters = [];
-
-searchInput.addEventListener('keyup', (e) => {
-    const searchString = e.target.value.toLowerCase();
-        console.log(searchString);
-    const filteredCharacters = hpCharacters.filter((character) => {
-        return (
-            character.name.toLowerCase().includes(searchString) ||
-            character.location.toLowerCase().includes(searchString)
-        );
-    });
-    displayCharacters(filteredCharacters);
-});
-
-const loadCharacters = async () => {
-    try {
-        const res = await fetch('http://localhost:9092/plant/1');
-        hpCharacters = await res.json();
-        displayCharacters(hpCharacters);
-    } catch (err) {
-        console.error(err);
-    }
-};
-
-// const fetcher = () => {
-//     console.log(searchString);
-//         fetch(`http://localhost:9092/plant/${id}`)
-//             .then(response => console.log(response))
-//             .then(data => console.log(data))
-//             .catch(error => console.error('Unable to get items.', error));
-//  }
-// fetcher()
-
-const displayCharacters = (characters) => {
-    const htmlString = characters
-        .map((character) => {
-            return `
-            <div class="character">
-                <label ${character.name}</label>
-            </div>
-            <div class="character">
-                <label ${character.location}</label>
-            </div>
-        `;
+$(document).ready(function () {
+    $('#searchInput').on('keyup', function (event) {
+        $("#searchResults").on('keyup', function (event) {
+            let text = $(this).val()
+            console.log(text)
+            $.ajax(
+                {
+                    url: ("/api/v1/search?q=" + text),
+                    method: "GET",
+                    success: function (response) {
+                        console.log(response)
+                        for (let element of response) {
+                            if (element.name) {
+                                let element_name = $(this).val("<li>" + element.name + "</li>");
+                                $('#searchResults').append(element_name)
+                                console.log(element_name)
+                            }
+                            if (element.location) {
+                                let element_location = $(this).val("<li>" + element.location + "</li>");
+                                $('#searchResults').append(element_location);
+                                console.log(element_location)
+                            }
+                            if (element.email) {
+                                let element_email = $(this).val("<li>" + element.email + "</li>");
+                                $('#searchResults').append(element_email);
+                                console.log(element_email)
+                            }
+                            if (element.address) {
+                                let element_address = $(this).val("<li>" + element.address + "</li>");
+                                $('#searchResults').append(element_address);
+                                console.log(element_address)
+                            }
+                        }
+                    }
+                }
+            )
         })
-        .join('');
-    charactersList.innerHTML = htmlString;
-};
-
-loadCharacters();
-
-
-
-// https://www.jamesqquick.com/blog/build-a-javascript-search-bar
-
+    })
+});
